@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <title>כניסה למנויים</title>
+  <style>
+    body { font-family: Arial; text-align: right; direction: rtl; padding: 40px; background: #f0f0f0; }
+    input { padding: 10px; width: 250px; margin: 10px 0; font-size: 16px; }
+    button { padding: 10px 20px; background: #25D366; color: white; border: none; font-size: 16px; cursor: pointer; border-radius: 5px; }
+    .msg { margin-top: 10px; font-weight: bold; }
+    .error { color: red; }
+    .success { color: green; }
+  </style>
+</head>
+<body>
+  <h1>כניסה למנויים</h1>
+
+  <div id="step1">
+    <h2>הזן מספר WhatsApp</h2>
+    <input id="phone" placeholder="+972501234567" /><br/>
+    <button onclick="requestOtp()">שלח קוד ב-WhatsApp</button>
+    <p id="msg1" class="msg"></p>
+  </div>
+
+  <div id="step2" style="display:none;">
+    <h2>הזן את הקוד שקיבלת</h2>
+    <input id="otp" placeholder="קוד 6 ספרות" /><br/>
+    <button onclick="verifyOtp()">אשר כניסה</button>
+    <p id="msg2" class="msg"></p>
+  </div>
+
+  <div id="members" style="display:none;">
+    <h2>ברוך הבא לאזור המנויים!</h2>
+    <p>זה התוכן הסודי שרק מנויים רואים.</p>
+  </div>
+
+  <script>
+    async function requestOtp() {
+      const phone = document.getElementById('phone').value.trim();
+      const msg = document.getElementById('msg1');
+      const res = await fetch('/api/request-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone })
+      });
+      const data = await res.json();
+      if (data.success) {
+        msg.className = 'msg success';
+        msg.textContent = 'הקוד נשלח ב-WhatsApp!';
+        document.getElementById('step2').style.display = 'block';
+      } else {
+        msg.className = 'msg error';
+        msg.textContent = 'שגיאה: ' + (data.error || 'לא ידועה');
+      }
+    }
+
+    async function verifyOtp() {
+      const phone = document.getElementById('phone').value.trim();
+      const otp = document.getElementById('otp').value.trim();
+      const msg = document.getElementById('msg2');
+      const res = await fetch('/api/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, otp })
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('members').style.display = 'block';
+      } else {
+        msg.className = 'msg error';
+        msg.textContent = 'שגיאה: ' + (data.error || 'קוד שגוי');
+      }
+    }
+  </script>
+</body>
+</html>
