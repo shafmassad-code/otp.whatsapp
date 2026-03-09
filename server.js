@@ -14,7 +14,8 @@ app.use(express.static('public'));
 const otpStore = {};
 
 const authorizedUsers = [
-  "+972507357127", // תוסיף כאן מספרים של מנויים
+  "+972507357127",
+  "+972585976060", // תוסיף כאן מספרים של מנויים
 ];
 
 app.post('/api/request-otp', async (req, res) => {
