@@ -1,160 +1,181 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>המקומון - אזור מנויים</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; direction: rtl; text-align: right; background: #f5f5f5; }
-    .header { background: #ffffff; border-bottom: 3px solid #c00000; padding: 15px 30px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-    .header-center { text-align: center; }
-    .header-logo { font-size: 52px; font-weight: 900; color: #c00000; font-style: italic; }
-    .header-subtitle { font-size: 14px; color: #555; margin-top: 3px; }
-    .header-contact { text-align: left; font-size: 14px; color: #333; }
-    .header-contact a { color: #c00000; text-decoration: none; font-weight: bold; }
-    .whatsapp-btn { display: inline-block; margin-top: 6px; background: #25D366; color: white !important; padding: 6px 14px; border-radius: 20px; font-size: 13px; text-decoration: none !important; }
-    .page-body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-    .right-side { display: flex; flex-direction: column; gap: 20px; }
-    .login-box { background: white; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); padding: 35px; }
-    .login-box h2 { font-size: 22px; color: #c00000; margin-bottom: 8px; border-bottom: 2px solid #c00000; padding-bottom: 10px; }
-    .login-box p { font-size: 14px; color: #666; margin-bottom: 20px; margin-top: 8px; }
-    input { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 15px; text-align: right; direction: rtl; }
-    input:focus { border-color: #c00000; outline: none; }
-    .btn-main { width: 100%; padding: 13px; background: #c00000; color: white; border: none; border-radius: 6px; font-size: 17px; cursor: pointer; font-weight: bold; }
-    .btn-main:hover { background: #a00000; }
+    body { font-family: Arial, sans-serif; direction: rtl; text-align: right; background: #f0f4f8; }
+    .header { background: linear-gradient(135deg, #1a3a8f 0%, #2563eb 60%, #dbeafe 100%); padding: 18px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 3px 12px rgba(0,0,0,0.2); }
+    .header-logo { font-size: 48px; font-weight: 900; color: #ffffff; font-style: italic; text-shadow: 2px 2px 6px rgba(0,0,0,0.3); }
+    .header-subtitle { font-size: 14px; color: #bfdbfe; margin-top: 4px; }
+    .header-contact { margin-top: 8px; font-size: 14px; color: #e0f2fe; }
+    .header-contact a { color: #93c5fd; text-decoration: none; font-weight: bold; }
+    .whatsapp-btn { display: inline-block; margin-top: 8px; background: #25D366; color: white !important; padding: 6px 16px; border-radius: 20px; font-size: 13px; text-decoration: none !important; }
+    #login-page { max-width: 420px; margin: 50px auto; background: white; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); padding: 36px 28px; text-align: center; }
+    #login-page h2 { font-size: 22px; color: #1a3a8f; border-bottom: 2px solid #2563eb; padding-bottom: 10px; margin-bottom: 14px; }
+    #login-page p { font-size: 14px; color: #666; margin-bottom: 18px; }
+    input { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 14px; text-align: center; direction: ltr; }
+    input:focus { border-color: #2563eb; outline: none; }
+    .btn-main { width: 100%; padding: 13px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 17px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+    .btn-main:hover { background: #1a3a8f; }
     .msg { margin-top: 12px; font-weight: bold; font-size: 14px; }
-    .error { color: #c00000; }
-    .success { color: #25D366; }
-    .bot-locked { background: white; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); padding: 25px; text-align: center; position: relative; overflow: hidden; }
-    .bot-locked h3 { color: #c00000; font-size: 18px; margin-bottom: 10px; }
-    .bot-preview { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px; filter: blur(3px); pointer-events: none; height: 80px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 14px; }
-    .lock-overlay { position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); background: rgba(192,0,0,0.85); color: white; padding: 10px 20px; border-radius: 8px; font-size: 15px; font-weight: bold; }
-    .welcome-box { background: white; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); padding: 25px; text-align: center; }
-    .welcome-box h2 { color: #c00000; font-size: 22px; border-bottom: 2px solid #c00000; padding-bottom: 10px; }
-    .welcome-box p { color: #666; font-size: 14px; margin-top: 8px; }
-    .bot-box { background: white; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); padding: 25px; text-align: center; }
-    .bot-box h3 { color: #c00000; font-size: 18px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-    .btn-bot { display: inline-block; width: 100%; padding: 13px; background: #c00000; color: white; border-radius: 6px; font-size: 16px; text-decoration: none; font-weight: bold; }
-    .btn-bot:hover { background: #a00000; }
-    .left-side { background: white; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); overflow: hidden; height: 750px; }
-    .left-side embed { width: 100%; height: 100%; }
-    .footer { text-align: center; padding: 20px; font-size: 12px; color: #999; margin-top: 30px; }
+    .error { color: #dc2626; }
+    .success { color: #16a34a; }
+    #members-page { display: none; }
+    .members-header { text-align: center; padding: 20px 16px 0; }
+    .members-header h2 { color: #1a3a8f; font-size: 1.3rem; }
+    .grid-container { max-width: 1100px; margin: 24px auto; padding: 0 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+    .square-card { border-radius: 14px; padding: 20px 10px; text-align: center; text-decoration: none; color: white; font-weight: 700; font-size: 0.92rem; box-shadow: 0 4px 14px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 110px; }
+    .square-card:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0,0,0,0.25); }
+    .square-card .icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .c1  { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .c2  { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+    .c3  { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .c4  { background: linear-gradient(135deg, #10b981, #059669); }
+    .c5  { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+    .c6  { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .c7  { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+    .c8  { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+    .c9  { background: linear-gradient(135deg, #f97316, #ea580c); }
+    .c10 { background: linear-gradient(135deg, #84cc16, #65a30d); }
+    .c11 { background: linear-gradient(135deg, #d946ef, #9333ea); }
+    #booklet-section { max-width: 900px; margin: 10px auto 40px; padding: 0 16px; }
+    #booklet-section h2 { text-align: center; color: #1a3a8f; font-size: 1.2rem; margin-bottom: 14px; font-weight: 700; }
+    .booklet-wrapper { width: 100%; background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 18px rgba(0,0,0,0.12); }
+    .booklet-wrapper embed { width: 100%; height: 700px; display: block; }
+    .logout-btn { display: block; margin: 14px auto 0; background: none; border: 2px solid #2563eb; color: #2563eb; padding: 8px 24px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
+    .logout-btn:hover { background: #2563eb; color: white; }
+    .footer { text-align: center; padding: 20px; font-size: 12px; color: #999; margin-top: 20px; }
+    @media (max-width: 600px) {
+      .header-logo { font-size: 34px; }
+      .grid-container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .square-card { min-height: 95px; font-size: 0.82rem; }
+      .booklet-wrapper embed { height: 480px; }
+      #login-page { margin: 24px 16px; padding: 24px 18px; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <div></div>
-    <div class="header-center">
-      <div class="header-logo">המקומון</div>
-      <div class="header-subtitle">העדכון היומי לרשויות המקומיות</div>
-    </div>
-    <div class="header-contact">
-      <div>📞 <a href="tel:0586846161">058-684-6161</a></div>
-      <a href="https://wa.me/972586846161" class="whatsapp-btn" target="_blank">💬 וואטסאפ המקומון</a>
-    </div>
+<div class="header">
+  <div class="header-logo">המקומון</div>
+  <div class="header-subtitle">העדכון היומי לרשויות המקומיות</div>
+  <div class="header-contact">
+    📞 <a href="tel:0586846161">058-684-6161</a>
+    &nbsp;|&nbsp;
+    📧 <a href="mailto:mekomon.yomi@gmail.com">mekomon.yomi@gmail.com</a>
+  </div>
+  <a class="whatsapp-btn" href="https://wa.me/972586846161">💬 וואטסאפ המקומון</a>
+</div>
+
+<div id="login-page">
+  <h2>כניסה למנויים</h2>
+  <div id="step1">
+    <p>הזן את מספר הוואטסאפ שלך כדי לקבל קוד כניסה חד־פעמי.</p>
+    <input id="phone" type="tel" placeholder="+972501234567" />
+    <button class="btn-main" onclick="requestOtp()">שלח קוד ב-WhatsApp</button>
+    <div class="msg" id="msg1"></div>
+  </div>
+  <div id="step2" style="display:none;">
+    <p>הזן את הקוד שקיבלת ב-WhatsApp (תקף ל-3 דקות).</p>
+    <input id="otp" type="number" placeholder="קוד 6 ספרות" />
+    <button class="btn-main" onclick="verifyOtp()">אשר כניסה</button>
+    <div class="msg" id="msg2"></div>
+  </div>
+</div>
+
+<div id="members-page">
+  <div class="members-header">
+    <h2>📚 ברוך הבא למקומון!</h2>
+    <button class="logout-btn" onclick="logout()">התנתק</button>
   </div>
 
-  <div class="page-body">
-    <div class="right-side">
+  <div class="grid-container">
+    <a href="https://notebooklm.google.com/notebook/f6f90528-70fb-485d-96c8-2aa640936f62" target="_blank" class="square-card c1">
+      <span class="icon">🤖</span> חוזרי מנכ"ל AI
+    </a>
+    <a href="https://notebooklm.google.com/notebook/00578117-bf2f-4a17-8e78-663d046720fe" target="_blank" class="square-card c2">
+      <span class="icon">🏗️</span> תכנון ובניה AI
+    </a>
+    <a href="https://notebooklm.google.com/notebook/6334d587-2ab7-4852-9ae3-f54d03edd996" target="_blank" class="square-card c3">
+      <span class="icon">📓</span> נוטבוק 3
+    </a>
+    <a href="https://notebooklm.google.com/notebook/b4af298a-cfa3-40db-a56f-39e195547540" target="_blank" class="square-card c4">
+      <span class="icon">📓</span> נוטבוק 4
+    </a>
+    <a href="https://notebooklm.google.com/notebook/e04b23f2-320b-4283-9733-c7ca34ae0d57" target="_blank" class="square-card c5">
+      <span class="icon">📓</span> נוטבוק 5
+    </a>
+    <a href="https://notebooklm.google.com/notebook/ad0ab0d0-b79a-4b78-8617-f5a4574f7645" target="_blank" class="square-card c6">
+      <span class="icon">📓</span> נוטבוק 6
+    </a>
+    <a href="https://notebooklm.google.com/notebook/48bf0e1f-2f29-497b-a106-64e32e1c7829" target="_blank" class="square-card c7">
+      <span class="icon">📓</span> נוטבוק 7
+    </a>
+    <a href="https://notebooklm.google.com/notebook/22f4bfa4-e8f6-4ba2-821f-945149673a6a" target="_blank" class="square-card c8">
+      <span class="icon">📓</span> נוטבוק 8
+    </a>
+    <a href="https://notebooklm.google.com/notebook/5fe95cd7-948e-4832-b22e-19a1185118ed" target="_blank" class="square-card c9">
+      <span class="icon">📓</span> נוטבוק 9
+    </a>
+    <a href="https://notebooklm.google.com/notebook/10ea3d70-1f1f-4bb3-b6a4-8f41ba704fc7" target="_blank" class="square-card c10">
+      <span class="icon">📓</span> נוטבוק 10
+    </a>
+  </div>
 
-      <div class="login-box">
-        <div id="step1">
-          <h2>כניסה למנויים</h2>
-          <p>הזן את מספר הוואטסאפ שלך כדי לקבל קוד כניסה חד־פעמי.</p>
-          <input id="phone" type="tel" placeholder="+972501234567" />
-          <button class="btn-main" onclick="requestOtp()">שלח קוד ב-WhatsApp</button>
-          <p id="msg1" class="msg"></p>
-        </div>
-        <div id="step2" style="display:none;">
-          <h2>אימות קוד</h2>
-          <p>הזן את הקוד שקיבלת ב-WhatsApp (תקף ל-3 דקות).</p>
-          <input id="otp" type="number" placeholder="קוד 6 ספרות" />
-          <button class="btn-main" onclick="verifyOtp()">אשר כניסה</button>
-          <p id="msg2" class="msg"></p>
-        </div>
-      </div>
-
-      <div id="bots-locked">
-        <div class="bot-locked" style="margin-bottom:20px;">
-          <h3>🤖 חוזרי מנכ"ל AI</h3>
-          <div class="bot-preview">התוכן זמין למנויים בלבד...</div>
-          <div class="lock-overlay">🔒 כניסה למנויים בלבד</div>
-        </div>
-        <div class="bot-locked">
-          <h3>🏗️ תכנון ובניה AI</h3>
-          <div class="bot-preview">התוכן זמין למנויים בלבד...</div>
-          <div class="lock-overlay">🔒 כניסה למנויים בלבד</div>
-        </div>
-      </div>
-
-      <div id="members" style="display:none; flex-direction:column; gap:20px;">
-        <div class="welcome-box">
-          <h2>ברוך הבא למקומון!</h2>
-          <p>אתה נמצא באזור המנויים הבלעדי.</p>
-        </div>
-        <div class="bot-box">
-          <h3>🤖 חוזרי מנכ"ל AI</h3>
-          <a href="https://notebooklm.google.com/notebook/f6f90528-70fb-485d-96c8-2aa640936f62" target="_blank" class="btn-bot">כנס לבוט</a>
-        </div>
-        <div class="bot-box">
-          <h3>🏗️ תכנון ובניה AI</h3>
-          <a href="https://notebooklm.google.com/notebook/00578117-bf2f-4a17-8e78-663d046720fe" target="_blank" class="btn-bot">כנס לבוט</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="left-side">
-    <iframe src="book (1) (1)_removed.pdf#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" style="border:none;"></iframe>
+  <div id="booklet-section">
+    <h2>📖 החוברת</h2>
+    <div class="booklet-wrapper">
+      <embed src="/book (1) (1)_removed.pdf" type="application/pdf" />
     </div>
   </div>
 
   <div class="footer">© המקומון - העדכון היומי לרשויות המקומיות | 058-684-6161</div>
+</div>
 
-  <script>
-    async function requestOtp() {
-      const phone = document.getElementById('phone').value.trim();
-      const msg = document.getElementById('msg1');
-      const res = await fetch('/api/request-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone })
-      });
-      const data = await res.json();
-      if (data.success) {
-        msg.className = 'msg success';
-        msg.textContent = '✓ הקוד נשלח ב-WhatsApp!';
-        document.getElementById('step2').style.display = 'block';
-        document.getElementById('step1').style.display = 'none';
-      } else {
-        msg.className = 'msg error';
-        msg.textContent = 'שגיאה: ' + (data.error || 'לא ידועה');
-      }
+<script>
+  async function requestOtp() {
+    const phone = document.getElementById('phone').value.trim();
+    const msg = document.getElementById('msg1');
+    const res = await fetch('/api/request-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone })
+    });
+    const data = await res.json();
+    if (data.success) {
+      msg.className = 'msg success';
+      msg.textContent = '✓ הקוד נשלח ב-WhatsApp!';
+      document.getElementById('step2').style.display = 'block';
+      document.getElementById('step1').style.display = 'none';
+    } else {
+      msg.className = 'msg error';
+      msg.textContent = 'שגיאה: ' + (data.error || 'לא ידועה');
     }
+  }
 
-    async function verifyOtp() {
-      const phone = document.getElementById('phone').value.trim();
-      const otp = document.getElementById('otp').value.trim();
-      const msg = document.getElementById('msg2');
-      const res = await fetch('/api/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, otp })
-      });
-      const data = await res.json();
-      if (data.success) {
-        document.getElementById('step2').style.display = 'none';
-        document.getElementById('bots-locked').style.display = 'none';
-        const members = document.getElementById('members');
-        members.style.display = 'flex';
-      } else {
-        msg.className = 'msg error';
-        msg.textContent = 'שגיאה: ' + (data.error || 'קוד שגוי');
-      }
+  async function verifyOtp() {
+    const phone = document.getElementById('phone').value.trim();
+    const otp = document.getElementById('otp').value.trim();
+    const msg = document.getElementById('msg2');
+    const res = await fetch('/api/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone, otp })
+    });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById('login-page').style.display = 'none';
+      document.getElementById('members-page').style.display = 'block';
+    } else {
+      msg.className = 'msg error';
+      msg.textContent = 'שגיאה: ' + (data.error || 'קוד שגוי');
     }
-  </script>
+  }
 
-</body>
-</html>
+  function logout() {
+    document.getElementById('members-page').style.display = 'none';
+    document.getElementById('login-page').style.display = 'block';
+    document.getElementById('step1').style.display = 
