@@ -179,3 +179,16 @@
     document.getElementById('members-page').style.display = 'none';
     document.getElementById('login-page').style.display = 'block';
     document.getElementById('step1').style.display = 
+  function logout() {
+    document.getElementById('members-page').style.display = 'none';
+    document.getElementById('login-page').style.display = 'block';
+    document.getElementById('step1').style.display = 'block';
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('phone').value = '';
+    document.getElementById('otp').value = '';
+    document.getElementById('msg1').textContent = '';
+    document.getElementById('msg2').textContent = '';
+  }
+</script>
+</body>
+</html>
