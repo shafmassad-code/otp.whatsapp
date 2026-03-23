@@ -40,25 +40,48 @@
     .c8  { background: linear-gradient(135deg, #14b8a6, #0d9488); }
     .c9  { background: linear-gradient(135deg, #f97316, #ea580c); }
     .c10 { background: linear-gradient(135deg, #84cc16, #65a30d); }
-    .c11 { background: linear-gradient(135deg, #d946ef, #9333ea); }
     #booklet-section { max-width: 900px; margin: 10px auto 40px; padding: 0 16px; }
     #booklet-section h2 { text-align: center; color: #1a3a8f; font-size: 1.2rem; margin-bottom: 14px; font-weight: 700; }
     .booklet-wrapper { width: 100%; background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 18px rgba(0,0,0,0.12); }
-    .booklet-wrapper embed { width: 100%; height: 700px; display: block; }
+    .booklet-wrapper iframe { width: 100%; height: 700px; border: none; display: block; background: white; }
     .logout-btn { display: block; margin: 14px auto 0; background: none; border: 2px solid #2563eb; color: #2563eb; padding: 8px 24px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
     .logout-btn:hover { background: #2563eb; color: white; }
     .footer { text-align: center; padding: 20px; font-size: 12px; color: #999; margin-top: 20px; }
+
+    /* ===== נגישות ===== */
+    #accessibility-btn { position: fixed; bottom: 20px; left: 20px; width: 52px; height: 52px; background: #2563eb; color: white; border: none; border-radius: 50%; font-size: 1.6rem; cursor: pointer; z-index: 9999; box-shadow: 0 4px 14px rgba(0,0,0,0.3); transition: background 0.2s; }
+    #accessibility-btn:hover { background: #1a3a8f; }
+    #accessibility-panel { display: none; position: fixed; bottom: 80px; left: 20px; background: white; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); padding: 16px; z-index: 9999; width: 220px; direction: rtl; }
+    #accessibility-panel h3 { font-size: 1rem; color: #1a3a8f; margin-bottom: 12px; border-bottom: 2px solid #2563eb; padding-bottom: 6px; }
+    .acc-btn { display: block; width: 100%; margin-bottom: 8px; padding: 8px 12px; background: #f0f4f8; border: none; border-radius: 8px; text-align: right; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
+    .acc-btn:hover { background: #dbeafe; }
+    .acc-btn.active { background: #2563eb; color: white; }
+    body.large-text { font-size: 120% !important; }
+    body.high-contrast { filter: contrast(150%) brightness(90%); }
+    body.highlight-links a { text-decoration: underline !important; color: #ff6600 !important; }
+
     @media (max-width: 600px) {
       .header-logo { font-size: 34px; }
       .grid-container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .square-card { min-height: 95px; font-size: 0.82rem; }
-      .booklet-wrapper embed { height: 480px; }
+      .booklet-wrapper iframe { height: 480px; }
       #login-page { margin: 24px 16px; padding: 24px 18px; }
     }
   </style>
 </head>
 <body>
 
+<!-- כפתור נגישות -->
+<button id="accessibility-btn" onclick="toggleAccessibility()" title="נגישות">♿</button>
+<div id="accessibility-panel">
+  <h3>♿ אפשרויות נגישות</h3>
+  <button class="acc-btn" id="btn-text" onclick="toggleFeature('large-text', 'btn-text')">🔠 הגדלת טקסט</button>
+  <button class="acc-btn" id="btn-contrast" onclick="toggleFeature('high-contrast', 'btn-contrast')">🌗 ניגודיות גבוהה</button>
+  <button class="acc-btn" id="btn-links" onclick="toggleFeature('highlight-links', 'btn-links')">🔗 הדגשת קישורים</button>
+  <button class="acc-btn" style="background:#fee2e2;" onclick="resetAccessibility()">🔄 איפוס הכל</button>
+</div>
+
+<!-- HEADER -->
 <div class="header">
   <div class="header-logo">המקומון</div>
   <div class="header-subtitle">העדכון היומי לרשויות המקומיות</div>
@@ -70,6 +93,7 @@
   <a class="whatsapp-btn" href="https://wa.me/972586846161">💬 וואטסאפ המקומון</a>
 </div>
 
+<!-- דף כניסה -->
 <div id="login-page">
   <h2>כניסה למנויים</h2>
   <div id="step1">
@@ -86,6 +110,7 @@
   </div>
 </div>
 
+<!-- אזור מנויים -->
 <div id="members-page">
   <div class="members-header">
     <h2>📚 ברוך הבא למקומון!</h2>
@@ -100,35 +125,35 @@
       <span class="icon">🏗️</span> תכנון ובניה AI
     </a>
     <a href="https://notebooklm.google.com/notebook/6334d587-2ab7-4852-9ae3-f54d03edd996" target="_blank" class="square-card c3">
-      <span class="icon">📓</span> נוטבוק 3
+      <span class="icon">⚖️</span> תביעות ייצגיות
     </a>
     <a href="https://notebooklm.google.com/notebook/b4af298a-cfa3-40db-a56f-39e195547540" target="_blank" class="square-card c4">
-      <span class="icon">📓</span> נוטבוק 4
+      <span class="icon">👷</span> דיני עבודה
     </a>
     <a href="https://notebooklm.google.com/notebook/e04b23f2-320b-4283-9733-c7ca34ae0d57" target="_blank" class="square-card c5">
-      <span class="icon">📓</span> נוטבוק 5
+      <span class="icon">💰</span> מיסוי מוניציפאלי
     </a>
     <a href="https://notebooklm.google.com/notebook/ad0ab0d0-b79a-4b78-8617-f5a4574f7645" target="_blank" class="square-card c6">
-      <span class="icon">📓</span> נוטבוק 6
+      <span class="icon">🏛️</span> היטלי פיתוח
     </a>
     <a href="https://notebooklm.google.com/notebook/48bf0e1f-2f29-497b-a106-64e32e1c7829" target="_blank" class="square-card c7">
-      <span class="icon">📓</span> נוטבוק 7
+      <span class="icon">🔍</span> ניגוד עניינים ומנהל תקין
     </a>
     <a href="https://notebooklm.google.com/notebook/22f4bfa4-e8f6-4ba2-821f-945149673a6a" target="_blank" class="square-card c8">
-      <span class="icon">📓</span> נוטבוק 8
+      <span class="icon">♿</span> דיני נגישות
     </a>
     <a href="https://notebooklm.google.com/notebook/5fe95cd7-948e-4832-b22e-19a1185118ed" target="_blank" class="square-card c9">
-      <span class="icon">📓</span> נוטבוק 9
+      <span class="icon">📚</span> נהלים תקנות וחוזרי מנכ"ל במערכות החינוך
     </a>
     <a href="https://notebooklm.google.com/notebook/10ea3d70-1f1f-4bb3-b6a4-8f41ba704fc7" target="_blank" class="square-card c10">
-      <span class="icon">📓</span> נוטבוק 10
+      <span class="icon">🤝</span> הקצאות ותמיכות
     </a>
   </div>
 
   <div id="booklet-section">
     <h2>📖 החוברת</h2>
     <div class="booklet-wrapper">
-      <embed src="/book (1) (1)_removed.pdf" type="application/pdf" />
+      <iframe src="/book (1) (1)_removed.pdf" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -175,7 +200,6 @@
     }
   }
 
-  
   function logout() {
     document.getElementById('members-page').style.display = 'none';
     document.getElementById('login-page').style.display = 'block';
@@ -186,6 +210,30 @@
     document.getElementById('msg1').textContent = '';
     document.getElementById('msg2').textContent = '';
   }
+
+  function toggleAccessibility() {
+    const panel = document.getElementById('accessibility-panel');
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function toggleFeature(className, btnId) {
+    document.body.classList.toggle(className);
+    document.getElementById(btnId).classList.toggle('active');
+  }
+
+  function resetAccessibility() {
+    document.body.classList.remove('large-text', 'high-contrast', 'highlight-links');
+    document.querySelectorAll('.acc-btn').forEach(b => b.classList.remove('active'));
+  }
+
+  document.addEventListener('click', function(e) {
+    const panel = document.getElementById('accessibility-panel');
+    const btn = document.getElementById('accessibility-btn');
+    if (!panel.contains(e.target) && e.target !== btn) {
+      panel.style.display = 'none';
+    }
+  });
 </script>
+
 </body>
 </html>
